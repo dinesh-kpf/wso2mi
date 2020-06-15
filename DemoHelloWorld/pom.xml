@@ -104,7 +104,7 @@
               <goal>push</goal>
             </goals>
             <configuration>
-              <repository>dineshverma/helloworld</repository>
+              <repository>dineshvermakpf/helloworld</repository>
               <tag>latest</tag>
             </configuration>
           </execution>

@@ -4,5 +4,23 @@
         <provider>org.wso2.micro.integrator.ndatasource.rdbms.RDBMSDataSourceReader</provider>
     </providers>
     <datasources>
+        <datasource>
+            <name>WSO2_USER_DB</name>
+            <description>this database is WSO2_USER_DB</description>
+            <jndiConfig>
+                <name>jdbc/WSO2_USER_DB</name>
+            </jndiConfig>
+            <definition type="RDBMS">
+                <configuration>
+                    <url>jdbc:mysql://localhost:6603/kpf_wf</url>
+                    <username>root</username>
+                    <password>toor</password>
+                    <driverClassName>com.mysql.jdbc.Driver</driverClassName>
+                    <maxWait>60000</maxWait>
+                    <testOnBorrow>true</testOnBorrow>
+                    <maxActive>50</maxActive>
+                </configuration>
+            </definition>
+        </datasource>
     </datasources>
 </datasources-configuration>
