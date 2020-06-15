@@ -15,3 +15,16 @@ file_name = "client-truststore.jks"
 password = "wso2carbon"
 alias = "symmetric.key.value"
 algorithm = "AES"
+
+[[datasource]]
+id = "WSO2_USER_DB"
+url= "jdbc:mysql://localhost:6603/kpf_wf"
+username="root"
+password="toor"
+driver="com.mysql.jdbc.Driver"
+pool_options.maxActive=50
+pool_options.maxWait = 60000
+pool_options.testOnBorrow = true
+
+[realm_manager]
+data_source = "WSO2_USER_DB"
