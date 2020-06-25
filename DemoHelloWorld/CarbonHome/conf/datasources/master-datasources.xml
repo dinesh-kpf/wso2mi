@@ -5,17 +5,17 @@
     </providers>
     <datasources>
         <datasource>
-            <name>WSO2_USER_DB</name>
-            <description>this database is WSO2_USER_DB</description>
+            <name>WF_RDBMS</name>
+            <description>this database is WF_RDBMS</description>
             <jndiConfig>
-                <name>jdbc/WSO2_USER_DB</name>
+                <name>jdbc/WF_RDBMS</name>
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>jdbc:mysql://localhost:6603/kpf_wf</url>
-                    <username>root</username>
-                    <password>toor</password>
-                    <driverClassName>com.mysql.jdbc.Driver</driverClassName>
+                    <url>jdbc:mysql://mysql:3306/kpf_wf?autoReconnect=true&amp;useSSL=false</url>
+                    <username>wso2carbon</username>
+                    <password>wso2carbon</password>
+                    <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>
                     <maxActive>50</maxActive>

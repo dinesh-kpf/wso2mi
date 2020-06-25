@@ -16,9 +16,13 @@ password = "wso2carbon"
 alias = "symmetric.key.value"
 algorithm = "AES"
 
-[database.kpf_wf]
+[[datasource]]
+id = "WF_RDBMS"
 type = "mysql"
 url = "jdbc:mysql://mysql:3306/kpf_wf?autoReconnect=true&amp;useSSL=false"
 username = "wso2carbon"
 password = "wso2carbon"
 driver = "com.mysql.cj.jdbc.Driver"
+pool_options.maxActive=50
+pool_options.maxWait = 60000
+pool_options.testOnBorrow = true

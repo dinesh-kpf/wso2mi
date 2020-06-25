@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/addNotification" name="AddNotification" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST">
+        <inSequence>
+            <property expression="json-eval($.ID)" name="ID" scope="default" type="STRING"/>
+            <property expression="json-eval($.SUBJECT)" name="SUBJECT" scope="default" type="STRING"/>
+            <property expression="json-eval($.MESSAGE)" name="MESSAGE" scope="default" type="STRING"/>
+            <property expression="json-eval($.CREATED_DATE)" name="CREATED_DATE" scope="default" type="STRING"/>
+            <property expression="json-eval($.READ_DATE)" name="READ_DATE" scope="default" type="STRING"/>
+            <property expression="json-eval($.USER_ID)" name="USER_ID" scope="default" type="STRING"/>
+            <property expression="json-eval($.TENANT_ID)" name="TENANT_ID" scope="default" type="STRING"/>
+            <property expression="json-eval($.TYPE)" name="TYPE" scope="default" type="STRING"/>
+            <property expression="json-eval($.CHANNEL)" name="CHANNEL" scope="default" type="STRING"/>
+            <property expression="json-eval($.R_STATUS)" name="R_STATUS" scope="default" type="STRING"/>
+            <dbreport>
+                <connection>
+                    <pool>
+                        <dsName>jdbc/WF_RDBMS</dsName>
+                    </pool>
+                </connection>
+                <statement>
+                    <sql><![CDATA[INSERT INTO wf_alerts_notifications (id, subject, message, created_date, user_id, tenant_id, type, channel, r_status) VALUES (?,?,?,CURRENT_TIMESTAMP(),?,?,?,?,?);
+]]></sql>
+                    <parameter expression="get-property('ID')" type="VARCHAR"/>
+                    <parameter expression="get-property('SUBJECT')" type="VARCHAR"/>
+                    <parameter expression="get-property('MESSAGE')" type="VARCHAR"/>
+                    <parameter expression="get-property('USER_ID')" type="VARCHAR"/>
+                    <parameter expression="get-property('TENANT_ID')" type="INTEGER"/>
+                    <parameter expression="get-property('TYPE')" type="VARCHAR"/>
+                    <parameter expression="get-property('CHANNEL')" type="VARCHAR"/>
+                    <parameter expression="get-property('R_STATUS')" type="VARCHAR"/>
+                </statement>
+            </dbreport>
+            <payloadFactory media-type="json">
+                <format>
+                {
+				"STATUS":"SUCCESS",
+				"MESSAGE":"NOTIFICATION SAVED SUCCESSFULLY.",
+				"RESULT":"SAVED"
+				}
+				</format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('RESULT')"/>
+                </args>
+            </payloadFactory>
+            <respond/>
+        </inSequence>
+        <outSequence>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <send/>
+        </outSequence>
+        <faultSequence>
+            <log level="full">
+                <property name="MESSAGE" value="Executing default 'fault' sequence"/>
+                <property expression="get-property('ERROR_CODE')" name="ERROR_CODE"/>
+                <property expression="get-property('ERROR_MESSAGE')" name="ERROR_MESSAGE"/>
+            </log>
+            <payloadFactory media-type="json">
+                <format>
+                {
+				"STATUS":"ERROR",
+				"MESSAGE":"$1",
+				"RESULT":"$2"
+				}
+				</format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('ERROR_MESSAGE')"/>
+                    <arg evaluator="xml" expression="get-property('ERROR_CODE')"/>
+                </args>
+            </payloadFactory>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <respond/>
+        </faultSequence>
+    </resource>
+</api>

@@ -27,7 +27,7 @@
 
             <!-- By default users in this role sees the registry root -->
             <Property name="isCascadeDeleteEnabled">true</Property>
-            <Property name="dataSource">jdbc/WSO2_USER_DB</Property>
+            <Property name="dataSource">jdbc/WSO2CarbonDB</Property>
         </Configuration>
 
         <UserStoreManager class="org.wso2.micro.integrator.security.user.core.ldap.ReadOnlyLDAPUserStoreManager">

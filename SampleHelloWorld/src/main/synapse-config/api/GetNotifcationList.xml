@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/getNotificationList" name="GetNotifcationList" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST">
+        <inSequence>
+            <property expression="json-eval($.USER_ID)" name="USER_ID" scope="default" type="STRING"/>
+            <class name="com.kpfactors.external.workflow.GetNotificationList"/>
+            <payloadFactory media-type="json">
+                <format>
+                {
+				"STATUS":"$1",
+				"MESSAGE":"$2",
+				"RESULT":$3
+				}
+				</format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('STATUS')"/>
+                    <arg evaluator="xml" expression="get-property('MESSAGE')"/>
+                    <arg evaluator="xml" expression="get-property('RESULT')"/>
+                </args>
+            </payloadFactory>
+            <respond/>
+        </inSequence>
+        <outSequence>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <send/>
+        </outSequence>
+        <faultSequence>
+            <log level="full">
+                <property name="MESSAGE" value="Executing default 'fault' sequence"/>
+                <property expression="get-property('ERROR_CODE')" name="ERROR_CODE"/>
+                <property expression="get-property('ERROR_MESSAGE')" name="ERROR_MESSAGE"/>
+            </log>
+            <payloadFactory media-type="json">
+                <format>
+                {
+				"STATUS":"ERROR",
+				"MESSAGE":"$1",
+				"RESULT":"$2"
+				}
+				</format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('ERROR_MESSAGE')"/>
+                    <arg evaluator="xml" expression="get-property('ERROR_CODE')"/>
+                </args>
+            </payloadFactory>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <respond/>
+        </faultSequence>
+    </resource>
+</api>
