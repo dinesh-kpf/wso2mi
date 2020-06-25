@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<api context="/addNotification" name="AddNotification" xmlns="http://ws.apache.org/ns/synapse">
+<api context="/addNotification" name="old.AddNotification" xmlns="http://ws.apache.org/ns/synapse">
     <resource methods="POST">
         <inSequence>
             <property expression="json-eval($.ID)" name="ID" scope="default" type="STRING"/>

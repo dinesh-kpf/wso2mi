@@ -2,4 +2,10 @@
     <artifact name="HelloWorld" groupId="wso2.sampleHelloWorld.SampleHelloWorld.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
         <file>src/main/synapse-config/proxy-services/HelloWorld.xml</file>
     </artifact>
+    <artifact name="AddNotification" groupId="wso2.sampleHelloWorld.SampleHelloWorld.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/AddNotification.xml</file>
+    </artifact>
+    <artifact name="GetNotifcationList" groupId="wso2.sampleHelloWorld.SampleHelloWorld.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/GetNotifcationList.xml</file>
+    </artifact>
 </artifacts>
