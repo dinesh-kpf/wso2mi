@@ -33,7 +33,7 @@ public class GetNotificationList extends AbstractMediator {
 		resultObject = new JSONObject();
 		try {
 			Hashtable<String, String> environment = new Hashtable<>();
-			environment.put("java.naming.factory.initial", "org.wso2.carbon.tomcat.jndi.CarbonJavaURLContextFactory");
+			environment.put("java.naming.factory.initial", "org.wso2.micro.tomcat.jndi.CarbonJavaURLContextFactory");
 			Context initContext = new InitialContext(environment);
 			DataSource ds = (DataSource) initContext.lookup("jdbc/WF_RDBMS");
 			con = ds.getConnection();
@@ -49,7 +49,6 @@ public class GetNotificationList extends AbstractMediator {
 				resultObject.put("user_id", rs.getString("user_id"));
 				resultObject.put("tenant_id", rs.getInt("tenant_id"));
 				resultObject.put("type", rs.getString("type"));
-				resultObject.put("GROUP_NAME", rs.getString("GROUP_NAME"));
 				resultObject.put("channel", rs.getString("channel"));
 				resultObject.put("r_status", rs.getString("r_status"));
 				resultArray.put(resultObject);
